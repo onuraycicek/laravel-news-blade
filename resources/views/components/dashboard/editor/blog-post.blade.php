@@ -1,5 +1,12 @@
 <section>
+
     <div class="container px-6 py-10 mx-auto">
+        <a href="{{ route('dashboard.editor.blog.create') }}"
+            class="inline-flex items-center rounded-md
+            bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline
+            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Oluştur
+        </a>
         <div class="mt-8 lg:-mx-6 lg:flex lg:items-center">
             <img class="object-cover w-full lg:mx-6 lg:w-1/3 rounded-xl h-36"
                 src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"alt="">
@@ -15,8 +22,15 @@
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure veritatis sint autem nesciunt,
                     laudantium quia tempore delect
                 </p>
-
+                <div class="mt-5">
+                    <a href="{{ route('dashboard.editor.blog.edit', 1) }}"
+                        class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Düzenle
+                    </a>
+                </div>
             </div>
+
         </div>
+
     </div>
 </section>

@@ -33,6 +33,19 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/posts', function () {
             return view('dashboard.editor.posts');
         })->name('dashboard.editor.posts');
+
+        Route::prefix('post')->group(function () {
+            
+            Route::get('/create', function () {
+                return view('dashboard.editor.post-create');
+            })->name('dashboard.editor.blog.create');
+    
+            Route::get('/{id}/edit', function () {
+                return view('dashboard.editor.post-edit');
+            })->name('dashboard.editor.blog.edit');
+        });
+
+
     });
 
 });
