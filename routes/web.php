@@ -16,11 +16,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
+})->name('home');
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard.home');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+    
+    Route::prefix('admin')->group(function () {
+        Route::get('/users', function () {
+            return view('dashboard.admin.users');
+        })->name('dashboard.admin.users');
+    });
+
+    Route::prefix('editor')->group(function () {
+        Route::get('/posts', function () {
+            return view('dashboard.editor.posts');
+        })->name('dashboard.editor.posts');
+    });
+
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.home');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

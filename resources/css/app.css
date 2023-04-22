@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer sidebar {
+    #sidebar ul li a.active {
+        @apply bg-slate-100;
+    }
+}

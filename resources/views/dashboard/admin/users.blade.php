@@ -1,3 +1,3 @@
 <x-dashboard-layout>
-    Home
+    <x-dashboard.admin.user-list />
 </x-dashboard-layout>

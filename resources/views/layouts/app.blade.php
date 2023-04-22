@@ -18,8 +18,7 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        @include('layouts.navigation')
-
+        @includeUnless(Route::is(['dashboard', 'dashboard.*']), 'layouts.navigation')
         <main>
             {{ $slot }}
         </main>
