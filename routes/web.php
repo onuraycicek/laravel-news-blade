@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [PostController::class, 'list'])->name('home');
+Route::get('/{slug}_h{id}', [PostController::class, 'getOne'])->name('post');
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
