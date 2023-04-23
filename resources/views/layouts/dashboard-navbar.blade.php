@@ -3,6 +3,7 @@
 $navs = [
     [
         'name' => 'Editor',
+        'permission' => 'view editor dashboard',
         'items' => [
             [
                 'name' => 'Paylaşımlarım',
@@ -12,6 +13,7 @@ $navs = [
     ],
     [
         'name' => 'Yönetici',
+        'permission' => 'view admin dashboard',
         'items' => [
             [
                 'name' => 'Kullanıcılar',
@@ -45,13 +47,15 @@ $navs = [
             class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
 
             @foreach ($navs as $nav)
-                <span
-                    class="block py-2 mt-2 text-xs font-semibold text-gray-400 uppercase dark-mode:text-gray-300">{{ $nav['name'] }}</span>
-                @foreach ($nav['items'] as $item)
-                    <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900  rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:outline-none focus:shadow-outline"
-                        :class="{ 'bg-gray-200': '{{ route($item['route']) }}' == '{{ url()->current() }}' }"
-                        href="{{ route($item['route']) }}">{{ $item['name'] }}</a>
-                @endforeach
+                @if (Auth::user()->can($nav['permission']))
+                    <span
+                        class="block py-2 mt-2 text-xs font-semibold text-gray-400 uppercase dark-mode:text-gray-300">{{ $nav['name'] }}</span>
+                    @foreach ($nav['items'] as $item)
+                        <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900  rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:outline-none focus:shadow-outline"
+                            :class="{ 'bg-gray-200': '{{ route($item['route']) }}' == '{{ url()->current() }}' }"
+                            href="{{ route($item['route']) }}">{{ $item['name'] }}</a>
+                    @endforeach
+                @endif
             @endforeach
     </div>
     </nav>

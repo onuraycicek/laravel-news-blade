@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Enums\PermissionsEnum;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,18 +18,29 @@ use App\Http\Controllers\PostController;
 Route::get('/', [PostController::class, 'list'])->name('home');
 Route::get('/{slug}_h{id}', [PostController::class, 'getOne'])->name('post');
 
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')
+->group(function () {
+
     Route::get('/', function () {
         return view('dashboard.home');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    })
+    ->middleware(['permission:{PermissionsEnum::VIEWDASHBOARD}'])
+    ->name('dashboard');
     
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')
+    ->middleware(['permission:{PermissionsEnum::VIEWADMINDASHBOARD}'])
+    ->group(function () {
+
         Route::get('/users', function () {
             return view('dashboard.admin.users');
         })->name('dashboard.admin.users');
+        
     });
 
-    Route::prefix('editor')->group(function () {
+    Route::prefix('editor')
+    ->middleware(['permission:{PermissionsEnum::VIEWEDITORDASHBOARD}'])
+    ->group(function () {
+
         Route::get('/posts', function () {
             return view('dashboard.editor.posts');
         })->name('dashboard.editor.posts');
@@ -42,8 +54,8 @@ Route::prefix('dashboard')->group(function () {
             Route::get('/{id}/edit', function () {
                 return view('dashboard.editor.post-edit');
             })->name('dashboard.editor.blog.edit');
+            
         });
-
 
     });
 
