@@ -15,17 +15,17 @@ Route::prefix('dashboard')
 ->group(function () {
 
     Route::get('/', [DashboardIndexController::class, 'show'])
-        ->middleware(['permission:{PermissionsEnum::VIEWDASHBOARD}'])
+        ->middleware(["permission:".PermissionsEnum::VIEWDASHBOARD->value])
         ->name('dashboard');
         
     Route::prefix('admin')
-        ->middleware(['permission:{PermissionsEnum::VIEWADMINDASHBOARD}'])
+        ->middleware(['permission:'.PermissionsEnum::VIEWADMINDASHBOARD->value])
         ->group(function () {
             Route::get('/users', [DashboardAdminUsersController::class, 'show'])->name('dashboard.admin.users');
         });
 
     Route::prefix('editor')
-    ->middleware(['permission:{PermissionsEnum::VIEWEDITORDASHBOARD}'])
+    ->middleware(['permission:'.PermissionsEnum::VIEWEDITORDASHBOARD->value])
     ->group(function () {
         Route::get('/posts', [DashboardEditorPostController::class, 'show'])->name('dashboard.editor.posts');
         Route::prefix('post')->group(function () {
