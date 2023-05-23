@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function list()
     {
-        $posts = Post::latest()->paginate(6);
+        $posts = Post::latest()->where('status', 1)->paginate(6);
         return view('home', ['posts' => $posts]);
     }
 
