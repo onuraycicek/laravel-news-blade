@@ -82,4 +82,11 @@ class PostController extends Controller
         $post->update($newData);
         return redirect()->route('dashboard.editor.blog.edit', ['id' => $id]);
     }
+
+    public function delete($id)
+    {
+        $post = Post::find($id);
+        $post->delete();
+        return redirect()->route('dashboard.editor.posts.show');
+    }
 }

@@ -37,6 +37,8 @@ Route::prefix('dashboard')
         Route::prefix('post')->group(function () {
             Route::post('/create', [DashboardEditorPostController::class, 'create'] )
             ->name('blog.create');
+            Route::delete('/{id}/delete', [DashboardEditorPostController::class, 'delete'] )
+            ->name('blog.delete');
             Route::post('/{id}/edit', [DashboardEditorPostController::class, 'edit'] )
             ->name('blog.edit');
             Route::get('/{id}/edit', [DashboardEditorPostController::class, 'showEdit'] )
