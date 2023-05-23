@@ -11,7 +11,7 @@ class BlogPost extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $title, public string $content, public string $category)
+    public function __construct(public string $title, public string $content, public string $category, public int $id, public string $image)
     {}
 
     /**

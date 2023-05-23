@@ -12,29 +12,36 @@ Route::get('/', [PostController::class, 'list'])->name('home');
 Route::get('/{slug}_h{id}', [PostController::class, 'getOne'])->name('post');
 
 Route::prefix('dashboard')
+->as('dashboard.')
 ->group(function () {
 
     Route::get('/', [DashboardIndexController::class, 'show'])
         ->middleware(["permission:".PermissionsEnum::VIEWDASHBOARD->value])
-        ->name('dashboard');
+        ->name('index');
         
     Route::prefix('admin')
         ->middleware(['permission:'.PermissionsEnum::VIEWADMINDASHBOARD->value])
+        ->as('admin.')
         ->group(function () {
-            Route::get('/users', [DashboardAdminUsersController::class, 'show'])->name('dashboard.admin.users');
+            Route::get('/users', [DashboardAdminUsersController::class, 'show'])->name('users');
         });
 
     Route::prefix('editor')
     ->middleware(['permission:'.PermissionsEnum::VIEWEDITORDASHBOARD->value])
+    ->as('editor.')
     ->group(function () {
-        Route::get('/posts', [DashboardEditorPostController::class, 'show'])->name('dashboard.editor.posts');
+        Route::get('/posts', [DashboardEditorPostController::class, 'showPublishedPosts'])
+        ->name('posts.show');
+        Route::get('/drafts', [DashboardEditorPostController::class, 'showDrafts'])
+        ->name('drafts.show');
         Route::prefix('post')->group(function () {
-            Route::get('/create', [DashboardEditorPostController::class, 'create'] )
-            ->name('dashboard.editor.blog.create');
-            Route::get('/{id}/edit', [DashboardEditorPostController::class, 'edit'] )
-            ->name('dashboard.editor.blog.edit');
+            Route::post('/create', [DashboardEditorPostController::class, 'create'] )
+            ->name('blog.create');
+            Route::post('/{id}/edit', [DashboardEditorPostController::class, 'edit'] )
+            ->name('blog.edit');
+            Route::get('/{id}/edit', [DashboardEditorPostController::class, 'showEdit'] )
+            ->name('blog.edit.show');
         });
-
     });
 
 });

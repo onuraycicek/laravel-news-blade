@@ -6,8 +6,12 @@ $navs = [
         'permission' => 'view editor dashboard',
         'items' => [
             [
-                'name' => 'Paylaşımlarım',
-                'route' => 'dashboard.editor.posts',
+                'name' => 'Taslaklar',
+                'route' => 'dashboard.editor.drafts.show',
+            ],
+            [
+                'name' => 'Yazılar',
+                'route' => 'dashboard.editor.posts.show',
             ],
         ],
     ],
