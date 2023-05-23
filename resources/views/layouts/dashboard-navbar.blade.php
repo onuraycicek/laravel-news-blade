@@ -1,33 +1,3 @@
-<?php
-//navs
-$navs = [
-    [
-        'name' => 'Editor',
-        'permission' => 'view editor dashboard',
-        'items' => [
-            [
-                'name' => 'Taslaklar',
-                'route' => 'dashboard.editor.drafts.show',
-            ],
-            [
-                'name' => 'Yazılar',
-                'route' => 'dashboard.editor.posts.show',
-            ],
-        ],
-    ],
-    [
-        'name' => 'Yönetici',
-        'permission' => 'view admin dashboard',
-        'items' => [
-            [
-                'name' => 'Kullanıcılar',
-                'route' => 'dashboard.admin.users',
-            ],
-        ],
-    ],
-];
-?>
-
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <div class="md:flex flex-col md:flex-row md:min-h-screen fixed top-0 left-0 w-full md:w-64">
     <div @click.away="open=false"
@@ -50,7 +20,7 @@ $navs = [
         <nav :class="{ 'block': open, 'hidden': !open }"
             class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
 
-            @foreach ($navs as $nav)
+            @foreach (config('panel') as $nav)
                 @if (Auth::user()->can($nav['permission']))
                     <span
                         class="block py-2 mt-2 text-xs font-semibold text-gray-400 uppercase dark-mode:text-gray-300">{{ $nav['name'] }}</span>
@@ -61,6 +31,6 @@ $navs = [
                     @endforeach
                 @endif
             @endforeach
+        </nav>
     </div>
-    </nav>
 </div>
